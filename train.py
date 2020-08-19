@@ -66,9 +66,9 @@ def main():
     rpn: RegionProposeNet = RegionProposeNet(gpu=gpu)
     fhd: FastHead = FastHead(len(colors), gpu=gpu)
 
-    bbn.load_from_file("test_bbn.weights")
-    rpn.load_from_file("test_rpn.weights")
-    fhd.load_from_file("test_fhd.weights")
+    bbn.load_from_file("save_bbn.weights")
+    rpn.load_from_file("save_rpn.weights")
+    fhd.load_from_file("save_fhd.weights")
     
     for n in range(epochs):
         print("round", n)
@@ -76,9 +76,9 @@ def main():
         bbn, fhd = train_fhd(bbn, rpn, fhd, bbn_active=True, batch_size=5, img_dim=500, its=its, lr=1e-3)
         bbn, rpn = train_rpn(bbn, rpn, bbn_active=False, batch_size=5, img_dim=500, its=its, lr=1e-5)
         bbn, fhd = train_fhd(bbn, rpn, fhd, bbn_active=False, batch_size=5, img_dim=500, its=its, lr=1e-5)
-        bbn.save_to_file("test_bbn.weights")
-        rpn.save_to_file("test_rpn.weights")
-        fhd.save_to_file("test_fhd.weights")
+        bbn.save_to_file("save_bbn.weights")
+        rpn.save_to_file("save_rpn.weights")
+        fhd.save_to_file("save_fhd.weights")
         
     print("done")
 
